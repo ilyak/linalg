@@ -17,6 +17,8 @@
 #ifndef LINALG_H_INCLUDED
 #define LINALG_H_INCLUDED
 
+#include <math.h>
+
 #ifdef LINALG_SINGLE_PRECISION
 typedef float real;
 #else /* LINALG_SINGLE_PRECISION */

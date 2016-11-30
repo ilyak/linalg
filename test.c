@@ -14,8 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <math.h>
-
 #include "linalg.h"
 
 #define EPS ((real)1.0e-10)

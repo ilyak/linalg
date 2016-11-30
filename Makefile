@@ -13,28 +13,30 @@ LIBS= -lm
 #LDFLAGS=
 #LIBS= -lm
 
-ALLSP_O= testsp.o
-ALLDP_O= testdp.o
+CFLAGSSP= -DLINALG_SINGLE_PRECISION $(CFLAGS)
+CFLAGSDP= $(CFLAGS)
 
-all: testsp testdp
+all: testsp testdp emptysp emptydp
 
-testsp: $(ALLSP_O)
-	$(CC) -o $@ $(CFLAGS) $(ALLSP_O) $(LDFLAGS) $(LIBS)
+testsp: test.c linalg.h
+	$(CC) -o $@ $(CFLAGSSP) test.c $(LDFLAGS) $(LIBS)
 
-testdp: $(ALLDP_O)
-	$(CC) -o $@ $(CFLAGS) $(ALLDP_O) $(LDFLAGS) $(LIBS)
+testdp: test.c linalg.h
+	$(CC) -o $@ $(CFLAGSDP) test.c $(LDFLAGS) $(LIBS)
 
-testsp.o: test.c linalg.h
-	$(CC) $(CFLAGS) -c -DLINALG_SINGLE_PRECISION -o testsp.o test.c
+emptysp: empty.c linalg.h
+	$(CC) -o $@ $(CFLAGSSP) empty.c $(LDFLAGS) $(LIBS)
 
-testdp.o: test.c linalg.h
-	$(CC) $(CFLAGS) -c -o testdp.o test.c
+emptydp: empty.c linalg.h
+	$(CC) -o $@ $(CFLAGSDP) empty.c $(LDFLAGS) $(LIBS)
 
-check: testsp testdp
-	@./testsp && echo success
-	@./testdp && echo success
+check: all
+	@echo -n "testsp... " && ./testsp && echo success
+	@echo -n "testdp... " && ./testdp && echo success
+	@echo -n "emptysp... " && ./emptysp && echo success
+	@echo -n "emptydp... " && ./emptydp && echo success
 
 clean:
-	rm -f $(ALLSP_O) $(ALLDP_O) testsp testdp gmon.out *.core
+	rm -f testsp testdp emptysp emptydp gmon.out *.core
 
 .PHONY: all check clean
