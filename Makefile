@@ -14,7 +14,7 @@ LIBS= -lm
 
 #CC= icc
 #CFLAGS= -Wall -Wextra -g
-#CC= icpc
+#CXX= icpc
 #CXXFLAGS= -Wall -Wextra -g
 #LDFLAGS=
 #LIBS= -lm
