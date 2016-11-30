@@ -1,0 +1,4 @@
+Linalg is a collection of routines for operations on vectors and matrices.
+It is implemented in portable C and has no dependencies.
+Both single precision (float) and double precision (double) versions are
+available. See file linalg.h for details.
