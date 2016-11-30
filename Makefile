@@ -7,11 +7,15 @@ LIBS= -lm
 
 #CC= gcc
 #CFLAGS= -Wall -Wextra -g
+#CXX= g++
+#CXXFLAGS= -Wall -Wextra -g
 #LDFLAGS=
 #LIBS= -lm
 
 #CC= icc
 #CFLAGS= -Wall -Wextra -g
+#CC= icpc
+#CXXFLAGS= -Wall -Wextra -g
 #LDFLAGS=
 #LIBS= -lm
 
