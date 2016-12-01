@@ -55,6 +55,13 @@ typedef struct {
 	real zx, zy, zz;
 } m33;
 
+#define v2idx(v, i) (((real *)&(v))[(i)])
+#define v3idx(v, i) (((real *)&(v))[(i)])
+#define m22idx(m, i, j) (((real *)&(m))[2*(i)+(j)])
+#define m23idx(m, i, j) (((real *)&(m))[3*(i)+(j)])
+#define m32idx(m, i, j) (((real *)&(m))[2*(i)+(j)])
+#define m33idx(m, i, j) (((real *)&(m))[3*(i)+(j)])
+
 static inline int
 realeq(real a, real b, real eps)
 {

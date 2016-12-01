@@ -22,12 +22,19 @@ static int
 test01(void)
 {
 	v3 a, b;
+	v2 c, d;
 
 	a = v3new(1, 2, 3);
 	b = v3new(3, 4, 5);
+	c = v2new(3, 7);
+	d = v2new(12, 28);
 
 	if (!v3eq(v3add(a, b), v3new( 4,  6,  8), EPS)) return (1);
 	if (!v3eq(v3sub(a, b), v3new(-2, -2, -2), EPS)) return (1);
+	if (!v2eq(v2add(d, v2scale(c, -4)), v2zero(), EPS)) return (1);
+	if (!v2eq(v2sub(d, v2scale(c,  4)), v2zero(), EPS)) return (1);
+	if (!realeq(v2idx(c, 0), 3, EPS)) return (1);
+	if (!realeq(v2idx(c, 1), 7, EPS)) return (1);
 
 	return (0);
 }
@@ -56,6 +63,9 @@ test03(void)
 
 	if (!realeq(v3dist(a, b), 13, EPS)) return (1);
 	if (!realeq(v3distsq(a, b), 169, EPS)) return (1);
+	if (!realeq(v3idx(a, 0),  2, EPS)) return (1);
+	if (!realeq(v3idx(a, 1),  3, EPS)) return (1);
+	if (!realeq(v3idx(a, 2), -4, EPS)) return (1);
 
 	return (0);
 }
@@ -74,6 +84,10 @@ test04(void)
 	if (!realeq(m22det(a), -2, EPS)) return (1);
 	if (!realeq(m22det(b), -8, EPS)) return (1);
 	if (!realeq(m22det(c),  0, EPS)) return (1);
+	if (!realeq(m22idx(a, 0, 0), -1, EPS)) return (1);
+	if (!realeq(m22idx(a, 0, 1), -2, EPS)) return (1);
+	if (!realeq(m22idx(a, 1, 0), -3, EPS)) return (1);
+	if (!realeq(m22idx(a, 1, 1), -4, EPS)) return (1);
 
 	return (0);
 }
@@ -92,6 +106,15 @@ test05(void)
 	if (!m33eq(m33add(a, a), m33scale(a, 2), EPS)) return (1);
 	if (!m33eq(m33sub(a, a), m33zero(), EPS)) return (1);
 	if (!realeq(m33det(c), 0, EPS)) return (1);
+	if (!realeq(m33idx(a, 0, 0), 1, EPS)) return (1);
+	if (!realeq(m33idx(a, 0, 1), 2, EPS)) return (1);
+	if (!realeq(m33idx(a, 0, 2), 3, EPS)) return (1);
+	if (!realeq(m33idx(a, 1, 0), 4, EPS)) return (1);
+	if (!realeq(m33idx(a, 1, 1), 5, EPS)) return (1);
+	if (!realeq(m33idx(a, 1, 2), 6, EPS)) return (1);
+	if (!realeq(m33idx(a, 2, 0), 7, EPS)) return (1);
+	if (!realeq(m33idx(a, 2, 1), 8, EPS)) return (1);
+	if (!realeq(m33idx(a, 2, 2), 9, EPS)) return (1);
 
 	return (0);
 }
@@ -106,6 +129,18 @@ test06(void)
 
 	if (!m22eq(m23m32(a, m23trans(a)), c, EPS)) return (1);
 	if (!m33eq(m32m23(b, m32trans(b)), d, EPS)) return (1);
+	if (!realeq(m23idx(a, 0, 0), 1, EPS)) return (1);
+	if (!realeq(m23idx(a, 0, 1), 2, EPS)) return (1);
+	if (!realeq(m23idx(a, 0, 2), 3, EPS)) return (1);
+	if (!realeq(m23idx(a, 1, 0), 4, EPS)) return (1);
+	if (!realeq(m23idx(a, 1, 1), 5, EPS)) return (1);
+	if (!realeq(m23idx(a, 1, 2), 6, EPS)) return (1);
+	if (!realeq(m32idx(b, 0, 0), 3, EPS)) return (1);
+	if (!realeq(m32idx(b, 0, 1), 2, EPS)) return (1);
+	if (!realeq(m32idx(b, 1, 0), 1, EPS)) return (1);
+	if (!realeq(m32idx(b, 1, 1), 6, EPS)) return (1);
+	if (!realeq(m32idx(b, 2, 0), 5, EPS)) return (1);
+	if (!realeq(m32idx(b, 2, 1), 4, EPS)) return (1);
 
 	return (0);
 }
