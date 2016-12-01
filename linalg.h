@@ -353,19 +353,52 @@ m23m32(m23 a, m32 b)
 static inline m33
 m32m23(m32 a, m23 b)
 {
-	return m33new(a.xx, b.xx, 0, 0, 0, 0, 0, 0, 0);
+	return m33new(a.xx * b.xx + a.xy * b.yx,
+		      a.xx * b.xy + a.xy * b.yy,
+		      a.xx * b.xz + a.xy * b.yz,
+		      a.yx * b.xx + a.yy * b.yx,
+		      a.yx * b.xy + a.yy * b.yy,
+		      a.yx * b.xz + a.yy * b.yz,
+		      a.zx * b.xx + a.zy * b.yx,
+		      a.zx * b.xy + a.zy * b.yy,
+		      a.zx * b.xz + a.zy * b.yz);
 }
 
 static inline m33
 m33m33(m33 a, m33 b)
 {
-	return m33new(a.xx, b.xx, 0, 0, 0, 0, 0, 0, 0);
+	return m33new(a.xx * b.xx + a.xy * b.yx + a.xz * b.zx,
+		      a.xx * b.xy + a.xy * b.yy + a.xz * b.zy,
+		      a.xx * b.xz + a.xy * b.yz + a.xz * b.zz,
+		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx,
+		      a.yx * b.xy + a.yy * b.yy + a.yz * b.zy,
+		      a.yx * b.xz + a.yy * b.yz + a.yz * b.zz,
+		      a.zx * b.xx + a.zy * b.yx + a.zz * b.zx,
+		      a.zx * b.xy + a.zy * b.yy + a.zz * b.zy,
+		      a.zx * b.xz + a.zy * b.yz + a.zz * b.zz);
 }
 
 static inline real
 m33det(m33 m)
 {
-	return (m.xx);
+	return (m.xx * m.yy * m.zz + m.xy * m.yz * m.zx +
+		m.yx * m.zy * m.xz - m.xz * m.yy * m.zx -
+		m.xx * m.yz * m.zy - m.xy * m.yx * m.zz);
+}
+
+static inline int
+m33eq(m33 a, m33 b, real eps)
+{
+	if (!realeq(a.xx, b.xx, eps)) return (0);
+	if (!realeq(a.xy, b.xy, eps)) return (0);
+	if (!realeq(a.xz, b.xz, eps)) return (0);
+	if (!realeq(a.yx, b.yx, eps)) return (0);
+	if (!realeq(a.yy, b.yy, eps)) return (0);
+	if (!realeq(a.yz, b.yz, eps)) return (0);
+	if (!realeq(a.zx, b.zx, eps)) return (0);
+	if (!realeq(a.zy, b.zy, eps)) return (0);
+	if (!realeq(a.zz, b.zz, eps)) return (0);
+	return (1);
 }
 
 #endif /* LINALG_H_INCLUDED */
