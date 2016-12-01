@@ -89,6 +89,8 @@ test05(void)
 
 	if (!m33eq(m33m33(a, m33trans(a)), b, EPS)) return (1);
 	if (!m33eq(m33m33(a, a), c, EPS)) return (1);
+	if (!m33eq(m33add(a, a), m33scale(a, 2), EPS)) return (1);
+	if (!m33eq(m33sub(a, a), m33zero(), EPS)) return (1);
 	if (!realeq(m33det(c), 0, EPS)) return (1);
 
 	return (0);

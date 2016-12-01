@@ -303,6 +303,30 @@ m33zero(void)
 }
 
 static inline m33
+m33add(m33 a, m33 b)
+{
+	return m33new(a.xx + b.xx, a.xy + b.xy, a.xz + b.xz,
+		      a.yx + b.yx, a.yy + b.yy, a.yz + b.yz,
+		      a.zx + b.zx, a.zy + b.zy, a.zz + b.zz);
+}
+
+static inline m33
+m33sub(m33 a, m33 b)
+{
+	return m33new(a.xx - b.xx, a.xy - b.xy, a.xz - b.xz,
+		      a.yx - b.yx, a.yy - b.yy, a.yz - b.yz,
+		      a.zx - b.zx, a.zy - b.zy, a.zz - b.zz);
+}
+
+static inline m33
+m33scale(m33 m, real s)
+{
+	return m33new(m.xx * s, m.xy * s, m.xz * s,
+		      m.yx * s, m.yy * s, m.yz * s,
+		      m.zx * s, m.zy * s, m.zz * s);
+}
+
+static inline m33
 m33trans(m33 m)
 {
 	return m33new(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy, m.xz, m.yz, m.zz);
