@@ -55,7 +55,7 @@ typedef struct {
 	real zx, zy, zz;
 } m33;
 
-static int
+static inline int
 realeq(real a, real b, real eps)
 {
 	return (fabs((double)(a - b)) < (double)eps);
@@ -65,7 +65,6 @@ static inline v2
 v2new(real x, real y)
 {
 	v2 v = { x, y };
-
 	return (v);
 }
 
@@ -78,33 +77,25 @@ v2zero(void)
 static inline v2
 v2add(v2 a, v2 b)
 {
-	v2 c = { a.x + b.x, a.y + b.y };
-
-	return (c);
+	return v2new(a.x + b.x, a.y + b.y);
 }
 
 static inline v2
 v2sub(v2 a, v2 b)
 {
-	v2 c = { a.x - b.x, a.y - b.y };
-
-	return (c);
+	return v2new(a.x - b.x, a.y - b.y);
 }
 
 static inline v2
 v2neg(v2 v)
 {
-	v2 r = { -v.x, -v.y };
-
-	return (r);
+	return v2new(-v.x, -v.y);
 }
 
 static inline v2
 v2scale(v2 v, real s)
 {
-	v2 r = { v.x * s, v.y * s };
-
-	return (r);
+	return v2new(v.x * s, v.y * s);
 }
 
 static inline real
@@ -146,14 +137,15 @@ v2dist(v2 a, v2 b)
 static inline int
 v2eq(v2 a, v2 b, real eps)
 {
-	return (v2dist(a, b) < eps);
+	if (!realeq(a.x, b.x, eps)) return (0);
+	if (!realeq(a.y, b.y, eps)) return (0);
+	return (1);
 }
 
 static inline v3
 v3new(real x, real y, real z)
 {
 	v3 v = { x, y, z };
-
 	return (v);
 }
 
@@ -166,43 +158,33 @@ v3zero(void)
 static inline v3
 v3add(v3 a, v3 b)
 {
-	v3 c = { a.x + b.x, a.y + b.y, a.z + b.z };
-
-	return (c);
+	return v3new(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
 static inline v3
 v3sub(v3 a, v3 b)
 {
-	v3 c = { a.x - b.x, a.y - b.y, a.z - b.z };
-
-	return (c);
+	return v3new(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
 static inline v3
 v3neg(v3 v)
 {
-	v3 r = { -v.x, -v.y, -v.z };
-
-	return (r);
+	return v3new(-v.x, -v.y, -v.z);
 }
 
 static inline v3
 v3scale(v3 v, real s)
 {
-	v3 r = { v.x * s, v.y * s, v.z * s };
-
-	return (r);
+	return v3new(v.x * s, v.y * s, v.z * s);
 }
 
 static inline v3
 v3cross(v3 a, v3 b)
 {
-	v3 r = { a.y * b.z - a.z * b.y,
-		 a.z * b.x - a.x * b.z,
-		 a.x * b.y - a.y * b.x };
-
-	return (r);
+	return v3new(a.y * b.z - a.z * b.y,
+		     a.z * b.x - a.x * b.z,
+		     a.x * b.y - a.y * b.x);
 }
 
 static inline real
@@ -244,7 +226,10 @@ v3dist(v3 a, v3 b)
 static inline int
 v3eq(v3 a, v3 b, real eps)
 {
-	return (v3dist(a, b) < eps);
+	if (!realeq(a.x, b.x, eps)) return (0);
+	if (!realeq(a.y, b.y, eps)) return (0);
+	if (!realeq(a.z, b.z, eps)) return (0);
+	return (1);
 }
 
 static inline m22
@@ -276,6 +261,12 @@ static inline m22
 m22trans(m22 m)
 {
 	return m22new(m.xx, m.yx, m.xy, m.yy);
+}
+
+static inline real
+m22det(m22 m)
+{
+	return (m.xx * m.yy - m.xy * m.yx);
 }
 
 static inline int
@@ -314,95 +305,67 @@ m33trans(m33 m)
 static inline v2
 m22v2(m22 m, v2 v)
 {
-	v2 w = { m.xx * v.x + m.xy * v.y,
-		 m.yx * v.x + m.yy * v.y };
-
-	return (w);
+	return v2new(m.xx * v.x + m.xy * v.y,
+		     m.yx * v.x + m.yy * v.y);
 }
 
 static inline v2
 m23v3(m23 m, v3 v)
 {
-	v2 w = { m.xx * v.x + m.xy * v.y + m.xz * v.z,
-		 m.yx * v.x + m.yy * v.y + m.yz * v.z };
-
-	return (w);
+	return v2new(m.xx * v.x + m.xy * v.y + m.xz * v.z,
+		     m.yx * v.x + m.yy * v.y + m.yz * v.z);
 }
 
 static inline v3
 m32v2(m32 m, v2 v)
 {
-	v3 w = { m.xx * v.x + m.xy * v.y,
-		 m.yx * v.x + m.yy * v.y,
-		 m.zx * v.x + m.zx * v.y };
-
-	return (w);
+	return v3new(m.xx * v.x + m.xy * v.y,
+		     m.yx * v.x + m.yy * v.y,
+		     m.zx * v.x + m.zx * v.y);
 }
 
 static inline v3
 m33v3(m33 m, v3 v)
 {
-	v3 w = { m.xx * v.x + m.xy * v.y + m.xz * v.z,
-		 m.yx * v.x + m.yy * v.y + m.yz * v.z,
-		 m.zx * v.x + m.zy * v.y + m.zz * v.z };
-
-	return (w);
+	return v3new(m.xx * v.x + m.xy * v.y + m.xz * v.z,
+		     m.yx * v.x + m.yy * v.y + m.yz * v.z,
+		     m.zx * v.x + m.zy * v.y + m.zz * v.z);
 }
 
 static inline m22
 m22m22(m22 a, m22 b)
 {
-	m22 c = { a.xx * b.xx + a.xy * b.yx,
-		  a.xx * b.xy + a.xy * b.yy,
-		  a.yx * b.xx + a.yy * b.yx,
-		  a.yx * b.xy + a.yy * b.yy };
-
-	return (c);
+	return m22new(a.xx * b.xx + a.xy * b.yx,
+		      a.xx * b.xy + a.xy * b.yy,
+		      a.yx * b.xx + a.yy * b.yx,
+		      a.yx * b.xy + a.yy * b.yy);
 }
 
 static inline m22
 m23m32(m23 a, m32 b)
 {
-	m22 c = { a.xx * b.xx + a.xy * b.yx + a.xz * b.zx,
-		  a.xx * b.xy + a.xy * b.yy + a.xz * b.zy,
-		  a.yx * b.xx + a.yy * b.yx + a.yz * b.zx,
-		  a.yx * b.xx + a.yy * b.yx + a.yz * b.zx };
-
-	return (c);
+	return m22new(a.xx * b.xx + a.xy * b.yx + a.xz * b.zx,
+		      a.xx * b.xy + a.xy * b.yy + a.xz * b.zy,
+		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx,
+		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx);
 }
 
 static inline m33
 m32m23(m32 a, m23 b)
 {
-	m33 c = { a.xx + b.xx,
-		  0, 0, 0, 0, 0, 0, 0, 0 };
-
-	return (c);
+	return m33new(a.xx, b.xx, 0, 0, 0, 0, 0, 0, 0);
 }
 
 static inline m33
 m33m33(m33 a, m33 b)
 {
-	m33 c = { a.xx + b.xx,
-		  0, 0, 0, 0, 0, 0, 0, 0 };
-
-	return (c);
-}
-
-static inline real
-m22det(m22 m)
-{
-	real det = m.xx * m.yy - m.xy * m.yx;
-
-	return (det);
+	return m33new(a.xx, b.xx, 0, 0, 0, 0, 0, 0, 0);
 }
 
 static inline real
 m33det(m33 m)
 {
-	real det = m.xx;
-
-	return (det);
+	return (m.xx);
 }
 
 #endif /* LINALG_H_INCLUDED */
