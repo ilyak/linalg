@@ -114,7 +114,7 @@ v2dot(v2 a, v2 b)
 static inline real
 v2lensq(v2 v)
 {
-	return (v2dot(v, v));
+	return v2dot(v, v);
 }
 
 static inline real
@@ -132,13 +132,13 @@ v2norm(v2 v)
 static inline real
 v2distsq(v2 a, v2 b)
 {
-	return (v2lensq(v2sub(a, b)));
+	return v2lensq(v2sub(a, b));
 }
 
 static inline real
 v2dist(v2 a, v2 b)
 {
-	return (v2len(v2sub(a, b)));
+	return v2len(v2sub(a, b));
 }
 
 static inline int
@@ -203,7 +203,7 @@ v3dot(v3 a, v3 b)
 static inline real
 v3lensq(v3 v)
 {
-	return (v3dot(v, v));
+	return v3dot(v, v);
 }
 
 static inline real
@@ -221,13 +221,13 @@ v3norm(v3 v)
 static inline real
 v3distsq(v3 a, v3 b)
 {
-	return (v3lensq(v3sub(a, b)));
+	return v3lensq(v3sub(a, b));
 }
 
 static inline real
 v3dist(v3 a, v3 b)
 {
-	return (v3len(v3sub(a, b)));
+	return v3len(v3sub(a, b));
 }
 
 static inline int
@@ -345,6 +345,13 @@ m22v2(m22 m, v2 v)
 }
 
 static inline v2
+m22solve(m22 a, v2 b)
+{
+	return v2new((a.xy*b.y - a.yy*b.x) / (a.xy*a.yx - a.xx*a.yy),
+		     (a.yx*b.x - a.xx*b.y) / (a.xy*a.yx - a.xx*a.yy));
+}
+
+static inline v2
 m23v3(m23 m, v3 v)
 {
 	return v2new(m.xx * v.x + m.xy * v.y + m.xz * v.z,
@@ -419,6 +426,16 @@ m33det(m33 m)
 	return (m.xx * m.yy * m.zz + m.xy * m.yz * m.zx +
 		m.yx * m.zy * m.xz - m.xz * m.yy * m.zx -
 		m.xx * m.yz * m.zy - m.xy * m.yx * m.zz);
+}
+
+static inline v3
+m33solve(m33 a, v3 b)
+{
+	real d = m33det(a);
+	real dx = m33det(m33new(b.x,a.xy,a.xz,b.y,a.yy,a.yz,b.z,a.zy,a.zz));
+	real dy = m33det(m33new(a.xx,b.x,a.xz,a.yx,b.y,a.yz,a.zx,b.z,a.zz));
+	real dz = m33det(m33new(a.xx,a.xy,b.x,a.yx,a.yy,b.y,a.zx,a.zy,b.z));
+	return v3new(dx/d, dy/d, dz/d);
 }
 
 static inline int
