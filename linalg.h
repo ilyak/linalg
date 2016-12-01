@@ -39,15 +39,15 @@ typedef struct {
 } m22;
 
 typedef struct {
+	real xx, xy, xz;
+	real yx, yy, yz;
+} m23;
+
+typedef struct {
 	real xx, xy;
 	real yx, yy;
 	real zx, zy;
 } m32;
-
-typedef struct {
-	real xx, xy, xz;
-	real yx, yy, yz;
-} m23;
 
 typedef struct {
 	real xx, xy, xz;
@@ -252,6 +252,12 @@ m22add(m22 a, m22 b)
 }
 
 static inline m22
+m22sub(m22 a, m22 b)
+{
+	return m22new(a.xx - b.xx, a.xy - b.xy, a.yx - b.yx, a.yy - b.yy);
+}
+
+static inline m22
 m22scale(m22 m, real s)
 {
 	return m22new(m.xx * s, m.xy * s, m.yx * s, m.yy * s);
@@ -347,7 +353,7 @@ m23m32(m23 a, m32 b)
 	return m22new(a.xx * b.xx + a.xy * b.yx + a.xz * b.zx,
 		      a.xx * b.xy + a.xy * b.yy + a.xz * b.zy,
 		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx,
-		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx);
+		      a.yx * b.xy + a.yy * b.yy + a.yz * b.zy);
 }
 
 static inline m33
@@ -399,6 +405,32 @@ m33eq(m33 a, m33 b, real eps)
 	if (!realeq(a.zy, b.zy, eps)) return (0);
 	if (!realeq(a.zz, b.zz, eps)) return (0);
 	return (1);
+}
+
+static inline m23
+m23new(real xx, real xy, real xz, real yx, real yy, real yz)
+{
+	m23 m = {xx, xy, xz, yx, yy, yz};
+	return (m);
+}
+
+static inline m32
+m32new(real xx, real xy, real yx, real yy, real zx, real zy)
+{
+	m32 m = {xx, xy, yx, yy, zx, zy};
+	return (m);
+}
+
+static inline m32
+m23trans(m23 m)
+{
+	return m32new(m.xx, m.yx, m.xy, m.yy, m.xz, m.yz);
+}
+
+static inline m23
+m32trans(m32 m)
+{
+	return m23new(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy);
 }
 
 #endif /* LINALG_H_INCLUDED */
