@@ -70,6 +70,23 @@ test04(void)
 	c = m22zero();
 
 	if (!m22eq(m22add(a, m22scale(b, 0.5)), c, EPS)) return (1);
+	if (!realeq(m22det(a), -2, EPS)) return (1);
+	if (!realeq(m22det(b), -8, EPS)) return (1);
+	if (!realeq(m22det(c),  0, EPS)) return (1);
+
+	return (0);
+}
+
+static int
+test05(void)
+{
+	m33 a, b, c;
+
+	a = b = m33new(1,2,3,4,5,6,7,8,9);
+	c = m33new(30,36,42,66,81,96,102,126,150);
+
+	if (!m33eq(m33m33(a, b), c, EPS)) return (1);
+	if (!realeq(m33det(c), 0, EPS)) return (1);
 
 	return (0);
 }
@@ -81,6 +98,7 @@ main(void)
 	if (test02()) return (1);
 	if (test03()) return (1);
 	if (test04()) return (1);
+	if (test05()) return (1);
 
 	return (0);
 }
