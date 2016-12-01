@@ -290,9 +290,7 @@ m33new(real xx, real xy, real xz,
        real yx, real yy, real yz,
        real zx, real zy, real zz)
 {
-	m33 m = { xx, xy, xz,
-		  yx, yy, yz,
-		  zx, zy, zz };
+	m33 m = { xx, xy, xz, yx, yy, yz, zx, zy, zz };
 	return (m);
 }
 
@@ -434,14 +432,14 @@ m33eq(m33 a, m33 b, real eps)
 static inline m23
 m23new(real xx, real xy, real xz, real yx, real yy, real yz)
 {
-	m23 m = {xx, xy, xz, yx, yy, yz};
+	m23 m = { xx, xy, xz, yx, yy, yz };
 	return (m);
 }
 
 static inline m32
 m32new(real xx, real xy, real yx, real yy, real zx, real zy)
 {
-	m32 m = {xx, xy, yx, yy, zx, zy};
+	m32 m = { xx, xy, yx, yy, zx, zy };
 	return (m);
 }
 
