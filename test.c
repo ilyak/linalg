@@ -19,12 +19,6 @@
 #define EPS ((real)1.0e-10)
 
 static int
-eq(real a, real b)
-{
-	return (fabs((double)(a - b)) < (double)EPS);
-}
-
-static int
 test01(void)
 {
 	v3 a, b;
@@ -46,8 +40,8 @@ test02(void)
 	a = v3new(3, 0, -4);
 
 	if (!v3eq(v3scale(a, 0.5), v3new(1.5, 0, -2), EPS)) return (1);
-	if (!eq(v3len(a), 5)) return (1);
-	if (!eq(v3lensq(a), 25)) return (1);
+	if (!realeq(v3len(a), 5, EPS)) return (1);
+	if (!realeq(v3lensq(a), 25, EPS)) return (1);
 
 	return (0);
 }
@@ -60,8 +54,22 @@ test03(void)
 	a = v3new(2, 3, -4);
 	b = v3new(2, 8, 8);
 
-	if (!eq(v3dist(a, b), 13)) return (1);
-	if (!eq(v3distsq(a, b), 169)) return (1);
+	if (!realeq(v3dist(a, b), 13, EPS)) return (1);
+	if (!realeq(v3distsq(a, b), 169, EPS)) return (1);
+
+	return (0);
+}
+
+static int
+test04(void)
+{
+	m22 a, b, c;
+
+	a = m22new(-1, -2, -3, -4);
+	b = m22new(2, 4, 6, 8);
+	c = m22zero();
+
+	if (!m22eq(m22add(a, m22scale(b, 0.5)), c, EPS)) return (1);
 
 	return (0);
 }
@@ -72,6 +80,7 @@ main(void)
 	if (test01()) return (1);
 	if (test02()) return (1);
 	if (test03()) return (1);
+	if (test04()) return (1);
 
 	return (0);
 }
