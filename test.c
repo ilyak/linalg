@@ -14,9 +14,16 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+/* If inline is defined as empty below, clang will warn about unused static
+ * functions from linalg. This can be used to ensure 100% test coverage. */
+#define inline
 #include "linalg.h"
 
-#define EPS ((real)1.0e-10)
+#ifdef LINALG_SINGLE_PRECISION
+#define EPS ((real)1.0e-6)
+#else
+#define EPS ((real)1.0e-16)
+#endif
 
 static int
 test01(void)
@@ -31,8 +38,11 @@ test01(void)
 
 	if (!v3eq(v3add(a, b), v3new( 4,  6,  8), EPS)) return (1);
 	if (!v3eq(v3sub(a, b), v3new(-2, -2, -2), EPS)) return (1);
+	if (!v3eq(v3scale(a, -2), v3neg(v3add(a, a)), EPS)) return (1);
+	if (!v3eq(v3sub(a, a), v3zero(), EPS)) return (1);
 	if (!v2eq(v2add(d, v2scale(c, -4)), v2zero(), EPS)) return (1);
 	if (!v2eq(v2sub(d, v2scale(c,  4)), v2zero(), EPS)) return (1);
+	if (!v2eq(v2scale(c, -2), v2neg(v2add(c, c)), EPS)) return (1);
 	if (!realeq(v2idx(c, 0), 3, EPS)) return (1);
 	if (!realeq(v2idx(c, 1), 7, EPS)) return (1);
 
@@ -42,13 +52,22 @@ test01(void)
 static int
 test02(void)
 {
-	v3 a;
+	v3 a, b, c;
+	v2 x, y;
 
 	a = v3new(3, 0, -4);
+	b = v3new(2, 7, 11);
+	c = v3new(28, -41, 21);
+	x = v2new(2, 3);
+	y = v2new(6, -3);
 
 	if (!v3eq(v3scale(a, 0.5), v3new(1.5, 0, -2), EPS)) return (1);
+	if (!v3eq(v3cross(a, b), c, EPS)) return (1);
+	if (!realeq(v3len(v3norm(b)), 1, EPS)) return (1);
 	if (!realeq(v3len(a), 5, EPS)) return (1);
 	if (!realeq(v3lensq(a), 25, EPS)) return (1);
+	if (!realeq(v2dist(x, y), v2len(v2sub(x, y)), EPS)) return (1);
+	if (!realeq(v2distsq(v2norm(x), v2zero()), 1, EPS)) return (1);
 
 	return (0);
 }
@@ -73,14 +92,16 @@ test03(void)
 static int
 test04(void)
 {
-	m22 a, b, c;
+	m22 a, b, c, d;
 
 	a = m22new(-1, -2, -3, -4);
 	b = m22new(2, 4, 6, 8);
 	c = m22zero();
+	d = m22new(0, -3, 3, 0);
 
 	if (!m22eq(m22add(a, m22scale(b,  0.5)), c, EPS)) return (1);
 	if (!m22eq(m22sub(a, m22scale(b, -0.5)), c, EPS)) return (1);
+	if (!m22eq(m22trans(d), m22neg(d), EPS)) return (1);
 	if (!realeq(m22det(a), -2, EPS)) return (1);
 	if (!realeq(m22det(b), -8, EPS)) return (1);
 	if (!realeq(m22det(c),  0, EPS)) return (1);
