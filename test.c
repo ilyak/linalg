@@ -170,10 +170,12 @@ static int
 test07(void)
 {
 	m22 a = m22new(1,2,3,4);
+	m22 t = m22trans(a);
 	v2 b = v2new(7,9);
 	v2 x = m22solve(a, b);
 
 	if (!v2eq(m22v2(a, x), b, EPS)) return (1);
+	if (!m22eq(m22trans(m22m22(a, a)), m22m22(t, t), EPS)) return (1);
 
 	return (0);
 }
@@ -186,6 +188,21 @@ test08(void)
 	v3 x = m33solve(a, b);
 
 	if (!v3eq(m33v3(a, x), b, EPS)) return (1);
+	if (!v3eq(m33v3(m33neg(a), x), m33v3(a, v3neg(x)), EPS)) return (1);
+
+	return (0);
+}
+
+static int
+test09(void)
+{
+	m23 a = m23new(1,2,3,4,5,6);
+	m32 t = m23trans(a);
+	v2 x = v2new(11,13);
+	v3 y = v3new(3,5,7);
+
+	if (!v2eq(m23v3(a, y), v2new(34,79), EPS)) return (1);
+	if (!v3eq(m32v2(t, x), v3new(63,87,111), EPS)) return (1);
 
 	return (0);
 }
@@ -201,6 +218,7 @@ main(void)
 	if (test06()) return (1);
 	if (test07()) return (1);
 	if (test08()) return (1);
+	if (test09()) return (1);
 
 	return (0);
 }

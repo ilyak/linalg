@@ -381,7 +381,7 @@ m32v2(m32 m, v2 v)
 {
 	return v3new(m.xx * v.x + m.xy * v.y,
 		     m.yx * v.x + m.yy * v.y,
-		     m.zx * v.x + m.zx * v.y);
+		     m.zx * v.x + m.zy * v.y);
 }
 
 static inline v3
