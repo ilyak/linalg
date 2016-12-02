@@ -269,6 +269,12 @@ m22sub(m22 a, m22 b)
 }
 
 static inline m22
+m22neg(m22 m)
+{
+	return m22new(-m.xx, -m.xy, -m.yx, -m.yy);
+}
+
+static inline m22
 m22scale(m22 m, real s)
 {
 	return m22new(m.xx * s, m.xy * s, m.yx * s, m.yy * s);
@@ -325,6 +331,14 @@ m33sub(m33 a, m33 b)
 	return m33new(a.xx - b.xx, a.xy - b.xy, a.xz - b.xz,
 		      a.yx - b.yx, a.yy - b.yy, a.yz - b.yz,
 		      a.zx - b.zx, a.zy - b.zy, a.zz - b.zz);
+}
+
+static inline m33
+m33neg(m33 m)
+{
+	return m33new(-m.xx, -m.xy, -m.xz,
+		      -m.yx, -m.yy, -m.yz,
+		      -m.zx, -m.zy, -m.zz);
 }
 
 static inline m33
