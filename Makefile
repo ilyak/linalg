@@ -24,7 +24,7 @@ CFLAGSDP= $(CFLAGS)
 CXXFLAGSSP= -DLINALG_SINGLE_PRECISION $(CXXFLAGS)
 CXXFLAGSDP= $(CXXFLAGS)
 
-ALL= testsp testdp emptysp emptydp emptycppsp emptycppdp
+ALL= testsp testdp testcppsp testcppdp emptysp emptydp emptycppsp emptycppdp
 
 all: $(ALL)
 
@@ -33,6 +33,12 @@ testsp: test.c linalg.h
 
 testdp: test.c linalg.h
 	$(CC) -o $@ $(CFLAGSDP) test.c $(LDFLAGS) $(LIBS)
+
+testcppsp: test.cpp linalg.h
+	$(CXX) -o $@ $(CXXFLAGSSP) test.cpp $(LDFLAGS) $(LIBS)
+
+testcppdp: test.cpp linalg.h
+	$(CXX) -o $@ $(CXXFLAGSDP) test.cpp $(LDFLAGS) $(LIBS)
 
 emptysp: empty.c linalg.h
 	$(CC) -o $@ $(CFLAGSSP) empty.c $(LDFLAGS) $(LIBS)
@@ -49,6 +55,8 @@ emptycppdp: empty.cpp linalg.h
 check: $(ALL)
 	@echo -n "testsp... " && ./testsp && echo success
 	@echo -n "testdp... " && ./testdp && echo success
+	@echo -n "testcppsp... " && ./testcppsp && echo success
+	@echo -n "testcppdp... " && ./testcppdp && echo success
 	@echo -n "emptysp... " && ./emptysp && echo success
 	@echo -n "emptydp... " && ./emptydp && echo success
 	@echo -n "emptycppsp... " && ./emptycppsp && echo success
