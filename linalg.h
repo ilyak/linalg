@@ -19,6 +19,10 @@
 
 #include <math.h>
 
+#ifdef __cplusplus
+namespace linalg {
+#endif
+
 #ifdef LINALG_SINGLE_PRECISION
 typedef float real;
 #else /* LINALG_SINGLE_PRECISION */
@@ -478,5 +482,9 @@ m32trans(m32 m)
 {
 	return m23new(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy);
 }
+
+#ifdef __cplusplus
+} /* namespace linalg */
+#endif
 
 #endif /* LINALG_H_INCLUDED */
