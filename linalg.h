@@ -262,6 +262,12 @@ m22zero(void)
 }
 
 static inline m22
+m22ident(void)
+{
+	return m22new(1, 0, 0, 1);
+}
+
+static inline m22
 m22add(m22 a, m22 b)
 {
 	return m22new(a.xx + b.xx, a.xy + b.xy, a.yx + b.yx, a.yy + b.yy);
@@ -297,6 +303,13 @@ m22det(m22 m)
 	return (m.xx * m.yy - m.xy * m.yx);
 }
 
+static inline m22
+m22inv(m22 m)
+{
+	real d = m22det(m);
+	return m22new(m.yy/d, -m.xy/d, -m.yx/d, m.xx/d);
+}
+
 static inline int
 m22eq(m22 a, m22 b, real eps)
 {
@@ -320,6 +333,12 @@ static inline m33
 m33zero(void)
 {
 	return m33new(0, 0, 0, 0, 0, 0, 0, 0, 0);
+}
+
+static inline m33
+m33ident(void)
+{
+	return m33new(1, 0, 0, 0, 1, 0, 0, 0, 1);
 }
 
 static inline m33
@@ -449,6 +468,21 @@ m33det(m33 m)
 	return (m.xx * m.yy * m.zz + m.xy * m.yz * m.zx +
 		m.yx * m.zy * m.xz - m.xz * m.yy * m.zx -
 		m.xx * m.yz * m.zy - m.xy * m.yx * m.zz);
+}
+
+static inline m33
+m33inv(m33 m)
+{
+	real d = (real)1.0 / m33det(m);
+	return m33new((m.yy * m.zz - m.yz * m.zy) * d,
+		      (m.zy * m.xz - m.zz * m.xy) * d,
+		      (m.xy * m.yz - m.xz * m.yy) * d,
+		      (m.yz * m.zx - m.yx * m.zz) * d,
+		      (m.zz * m.xx - m.zx * m.xz) * d,
+		      (m.xz * m.yx - m.xx * m.yz) * d,
+		      (m.yx * m.zy - m.yy * m.zx) * d,
+		      (m.zx * m.xy - m.zy * m.xx) * d,
+		      (m.xx * m.yy - m.xy * m.yx) * d);
 }
 
 static inline v3
