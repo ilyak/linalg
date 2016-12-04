@@ -22,7 +22,7 @@
 #ifdef LINALG_SINGLE_PRECISION
 #define EPS ((real)1.0e-6)
 #else
-#define EPS ((real)1.0e-16)
+#define EPS ((real)1.0e-15)
 #endif
 
 static int
@@ -102,6 +102,7 @@ test04(void)
 	if (!m22eq(m22add(a, m22scale(b,  0.5)), c, EPS)) return (1);
 	if (!m22eq(m22sub(a, m22scale(b, -0.5)), c, EPS)) return (1);
 	if (!m22eq(m22trans(d), m22neg(d), EPS)) return (1);
+	if (!m22eq(m22m22(b, m22inv(b)), m22ident(), EPS)) return (1);
 	if (!realeq(m22det(a), -2, EPS)) return (1);
 	if (!realeq(m22det(b), -8, EPS)) return (1);
 	if (!realeq(m22det(c),  0, EPS)) return (1);
@@ -189,6 +190,7 @@ test08(void)
 
 	if (!v3eq(m33v3(a, x), b, EPS)) return (1);
 	if (!v3eq(m33v3(m33neg(a), x), m33v3(a, v3neg(x)), EPS)) return (1);
+	if (!m33eq(m33m33(a, m33inv(a)), m33ident(), EPS)) return (1);
 
 	return (0);
 }
