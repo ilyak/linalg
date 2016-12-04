@@ -114,6 +114,12 @@ v2mul(v2 v, real s)
 	return v2new(v.x * s, v.y * s);
 }
 
+static inline v2
+v2div(v2 v, real s)
+{
+	return v2new(v.x / s, v.y / s);
+}
+
 static inline real
 v2dot(v2 a, v2 b)
 {
@@ -135,7 +141,7 @@ v2len(v2 v)
 static inline v2
 v2norm(v2 v)
 {
-	return (v2mul(v, (real)1.0 / v2len(v)));
+	return (v2div(v, v2len(v)));
 }
 
 static inline real
@@ -196,6 +202,12 @@ v3mul(v3 v, real s)
 }
 
 static inline v3
+v3div(v3 v, real s)
+{
+	return v3new(v.x / s, v.y / s, v.z / s);
+}
+
+static inline v3
 v3cross(v3 a, v3 b)
 {
 	return v3new(a.y * b.z - a.z * b.y,
@@ -224,7 +236,7 @@ v3len(v3 v)
 static inline v3
 v3norm(v3 v)
 {
-	return (v3mul(v, (real)1.0 / v3len(v)));
+	return (v3div(v, v3len(v)));
 }
 
 static inline real
@@ -292,6 +304,13 @@ m22mul(m22 m, real s)
 }
 
 static inline m22
+m22div(m22 m, real s)
+{
+	s = (real)1.0 / s;
+	return m22new(m.xx * s, m.xy * s, m.yx * s, m.yy * s);
+}
+
+static inline m22
 m22trans(m22 m)
 {
 	return m22new(m.xx, m.yx, m.xy, m.yy);
@@ -306,8 +325,8 @@ m22det(m22 m)
 static inline m22
 m22inv(m22 m)
 {
-	real d = m22det(m);
-	return m22new(m.yy/d, -m.xy/d, -m.yx/d, m.xx/d);
+	m22 i = m22new(m.yy, -m.xy, -m.yx, m.xx);
+	return m22div(i, m22det(m));
 }
 
 static inline int
@@ -368,6 +387,15 @@ m33neg(m33 m)
 static inline m33
 m33mul(m33 m, real s)
 {
+	return m33new(m.xx * s, m.xy * s, m.xz * s,
+		      m.yx * s, m.yy * s, m.yz * s,
+		      m.zx * s, m.zy * s, m.zz * s);
+}
+
+static inline m33
+m33div(m33 m, real s)
+{
+	s = (real)1.0 / s;
 	return m33new(m.xx * s, m.xy * s, m.xz * s,
 		      m.yx * s, m.yy * s, m.yz * s,
 		      m.zx * s, m.zy * s, m.zz * s);
@@ -473,16 +501,16 @@ m33det(m33 m)
 static inline m33
 m33inv(m33 m)
 {
-	real d = (real)1.0 / m33det(m);
-	return m33new((m.yy * m.zz - m.yz * m.zy) * d,
-		      (m.zy * m.xz - m.zz * m.xy) * d,
-		      (m.xy * m.yz - m.xz * m.yy) * d,
-		      (m.yz * m.zx - m.yx * m.zz) * d,
-		      (m.zz * m.xx - m.zx * m.xz) * d,
-		      (m.xz * m.yx - m.xx * m.yz) * d,
-		      (m.yx * m.zy - m.yy * m.zx) * d,
-		      (m.zx * m.xy - m.zy * m.xx) * d,
-		      (m.xx * m.yy - m.xy * m.yx) * d);
+	m33 i = m33new(m.yy * m.zz - m.yz * m.zy,
+		       m.zy * m.xz - m.zz * m.xy,
+		       m.xy * m.yz - m.xz * m.yy,
+		       m.yz * m.zx - m.yx * m.zz,
+		       m.zz * m.xx - m.zx * m.xz,
+		       m.xz * m.yx - m.xx * m.yz,
+		       m.yx * m.zy - m.yy * m.zx,
+		       m.zx * m.xy - m.zy * m.xx,
+		       m.xx * m.yy - m.xy * m.yx);
+	return m33div(i, m33det(m));
 }
 
 static inline v3
