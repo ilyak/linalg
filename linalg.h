@@ -109,7 +109,7 @@ v2neg(v2 v)
 }
 
 static inline v2
-v2scale(v2 v, real s)
+v2mul(v2 v, real s)
 {
 	return v2new(v.x * s, v.y * s);
 }
@@ -135,7 +135,7 @@ v2len(v2 v)
 static inline v2
 v2norm(v2 v)
 {
-	return (v2scale(v, (real)1.0 / v2len(v)));
+	return (v2mul(v, (real)1.0 / v2len(v)));
 }
 
 static inline real
@@ -190,7 +190,7 @@ v3neg(v3 v)
 }
 
 static inline v3
-v3scale(v3 v, real s)
+v3mul(v3 v, real s)
 {
 	return v3new(v.x * s, v.y * s, v.z * s);
 }
@@ -224,7 +224,7 @@ v3len(v3 v)
 static inline v3
 v3norm(v3 v)
 {
-	return (v3scale(v, (real)1.0 / v3len(v)));
+	return (v3mul(v, (real)1.0 / v3len(v)));
 }
 
 static inline real
@@ -286,7 +286,7 @@ m22neg(m22 m)
 }
 
 static inline m22
-m22scale(m22 m, real s)
+m22mul(m22 m, real s)
 {
 	return m22new(m.xx * s, m.xy * s, m.yx * s, m.yy * s);
 }
@@ -366,7 +366,7 @@ m33neg(m33 m)
 }
 
 static inline m33
-m33scale(m33 m, real s)
+m33mul(m33 m, real s)
 {
 	return m33new(m.xx * s, m.xy * s, m.xz * s,
 		      m.yx * s, m.yy * s, m.yz * s,

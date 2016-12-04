@@ -38,11 +38,11 @@ test01(void)
 
 	if (!v3eq(v3add(a, b), v3new( 4,  6,  8), EPS)) return (1);
 	if (!v3eq(v3sub(a, b), v3new(-2, -2, -2), EPS)) return (1);
-	if (!v3eq(v3scale(a, -2), v3neg(v3add(a, a)), EPS)) return (1);
+	if (!v3eq(v3mul(a, -2), v3neg(v3add(a, a)), EPS)) return (1);
 	if (!v3eq(v3sub(a, a), v3zero(), EPS)) return (1);
-	if (!v2eq(v2add(d, v2scale(c, -4)), v2zero(), EPS)) return (1);
-	if (!v2eq(v2sub(d, v2scale(c,  4)), v2zero(), EPS)) return (1);
-	if (!v2eq(v2scale(c, -2), v2neg(v2add(c, c)), EPS)) return (1);
+	if (!v2eq(v2add(d, v2mul(c, -4)), v2zero(), EPS)) return (1);
+	if (!v2eq(v2sub(d, v2mul(c,  4)), v2zero(), EPS)) return (1);
+	if (!v2eq(v2mul(c, -2), v2neg(v2add(c, c)), EPS)) return (1);
 	if (!realeq(v2idx(c, 0), 3, EPS)) return (1);
 	if (!realeq(v2idx(c, 1), 7, EPS)) return (1);
 
@@ -61,7 +61,7 @@ test02(void)
 	x = v2new(2, 3);
 	y = v2new(6, -3);
 
-	if (!v3eq(v3scale(a, 0.5), v3new(1.5, 0, -2), EPS)) return (1);
+	if (!v3eq(v3mul(a, 0.5), v3new(1.5, 0, -2), EPS)) return (1);
 	if (!v3eq(v3cross(a, b), c, EPS)) return (1);
 	if (!realeq(v3len(v3norm(b)), 1, EPS)) return (1);
 	if (!realeq(v3len(a), 5, EPS)) return (1);
@@ -99,8 +99,8 @@ test04(void)
 	c = m22zero();
 	d = m22new(0, -3, 3, 0);
 
-	if (!m22eq(m22add(a, m22scale(b,  0.5)), c, EPS)) return (1);
-	if (!m22eq(m22sub(a, m22scale(b, -0.5)), c, EPS)) return (1);
+	if (!m22eq(m22add(a, m22mul(b,  0.5)), c, EPS)) return (1);
+	if (!m22eq(m22sub(a, m22mul(b, -0.5)), c, EPS)) return (1);
 	if (!m22eq(m22trans(d), m22neg(d), EPS)) return (1);
 	if (!m22eq(m22m22(b, m22inv(b)), m22ident(), EPS)) return (1);
 	if (!realeq(m22det(a), -2, EPS)) return (1);
@@ -125,7 +125,7 @@ test05(void)
 
 	if (!m33eq(m33m33(a, m33trans(a)), b, EPS)) return (1);
 	if (!m33eq(m33m33(a, a), c, EPS)) return (1);
-	if (!m33eq(m33add(a, a), m33scale(a, 2), EPS)) return (1);
+	if (!m33eq(m33add(a, a), m33mul(a, 2), EPS)) return (1);
 	if (!m33eq(m33sub(a, a), m33zero(), EPS)) return (1);
 	if (!realeq(m33det(c), 0, EPS)) return (1);
 	if (!realeq(m33idx(a, 0, 0), 1, EPS)) return (1);
