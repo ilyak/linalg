@@ -315,6 +315,22 @@ m22trans(m22 m)
 	return m22new(m.xx, m.yx, m.xy, m.yy);
 }
 
+static inline v2
+m22v2(m22 m, v2 v)
+{
+	return v2new(m.xx * v.x + m.xy * v.y,
+		     m.yx * v.x + m.yy * v.y);
+}
+
+static inline m22
+m22m22(m22 a, m22 b)
+{
+	return m22new(a.xx * b.xx + a.xy * b.yx,
+		      a.xx * b.xy + a.xy * b.yy,
+		      a.yx * b.xx + a.yy * b.yx,
+		      a.yx * b.xy + a.yy * b.yy);
+}
+
 static inline real
 m22det(m22 m)
 {
@@ -326,6 +342,13 @@ m22inv(m22 m)
 {
 	m22 i = m22new(m.yy, -m.xy, -m.yx, m.xx);
 	return m22div(i, m22det(m));
+}
+
+static inline v2
+m22solve(m22 a, v2 b)
+{
+	return v2new((a.xy*b.y - a.yy*b.x) / (a.xy*a.yx - a.xx*a.yy),
+		     (a.yx*b.x - a.xx*b.y) / (a.xy*a.yx - a.xx*a.yy));
 }
 
 static inline int
@@ -403,73 +426,12 @@ m33trans(m33 m)
 	return m33new(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy, m.xz, m.yz, m.zz);
 }
 
-static inline v2
-m22v2(m22 m, v2 v)
-{
-	return v2new(m.xx * v.x + m.xy * v.y,
-		     m.yx * v.x + m.yy * v.y);
-}
-
-static inline v2
-m22solve(m22 a, v2 b)
-{
-	return v2new((a.xy*b.y - a.yy*b.x) / (a.xy*a.yx - a.xx*a.yy),
-		     (a.yx*b.x - a.xx*b.y) / (a.xy*a.yx - a.xx*a.yy));
-}
-
-static inline v2
-m23v3(m23 m, v3 v)
-{
-	return v2new(m.xx * v.x + m.xy * v.y + m.xz * v.z,
-		     m.yx * v.x + m.yy * v.y + m.yz * v.z);
-}
-
-static inline v3
-m32v2(m32 m, v2 v)
-{
-	return v3new(m.xx * v.x + m.xy * v.y,
-		     m.yx * v.x + m.yy * v.y,
-		     m.zx * v.x + m.zy * v.y);
-}
-
 static inline v3
 m33v3(m33 m, v3 v)
 {
 	return v3new(m.xx * v.x + m.xy * v.y + m.xz * v.z,
 		     m.yx * v.x + m.yy * v.y + m.yz * v.z,
 		     m.zx * v.x + m.zy * v.y + m.zz * v.z);
-}
-
-static inline m22
-m22m22(m22 a, m22 b)
-{
-	return m22new(a.xx * b.xx + a.xy * b.yx,
-		      a.xx * b.xy + a.xy * b.yy,
-		      a.yx * b.xx + a.yy * b.yx,
-		      a.yx * b.xy + a.yy * b.yy);
-}
-
-static inline m22
-m23m32(m23 a, m32 b)
-{
-	return m22new(a.xx * b.xx + a.xy * b.yx + a.xz * b.zx,
-		      a.xx * b.xy + a.xy * b.yy + a.xz * b.zy,
-		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx,
-		      a.yx * b.xy + a.yy * b.yy + a.yz * b.zy);
-}
-
-static inline m33
-m32m23(m32 a, m23 b)
-{
-	return m33new(a.xx * b.xx + a.xy * b.yx,
-		      a.xx * b.xy + a.xy * b.yy,
-		      a.xx * b.xz + a.xy * b.yz,
-		      a.yx * b.xx + a.yy * b.yx,
-		      a.yx * b.xy + a.yy * b.yy,
-		      a.yx * b.xz + a.yy * b.yz,
-		      a.zx * b.xx + a.zy * b.yx,
-		      a.zx * b.xy + a.zy * b.yy,
-		      a.zx * b.xz + a.zy * b.yz);
 }
 
 static inline m33
@@ -558,6 +520,44 @@ static inline m23
 m32trans(m32 m)
 {
 	return m23new(m.xx, m.yx, m.zx, m.xy, m.yy, m.zy);
+}
+
+static inline v2
+m23v3(m23 m, v3 v)
+{
+	return v2new(m.xx * v.x + m.xy * v.y + m.xz * v.z,
+		     m.yx * v.x + m.yy * v.y + m.yz * v.z);
+}
+
+static inline v3
+m32v2(m32 m, v2 v)
+{
+	return v3new(m.xx * v.x + m.xy * v.y,
+		     m.yx * v.x + m.yy * v.y,
+		     m.zx * v.x + m.zy * v.y);
+}
+
+static inline m22
+m23m32(m23 a, m32 b)
+{
+	return m22new(a.xx * b.xx + a.xy * b.yx + a.xz * b.zx,
+		      a.xx * b.xy + a.xy * b.yy + a.xz * b.zy,
+		      a.yx * b.xx + a.yy * b.yx + a.yz * b.zx,
+		      a.yx * b.xy + a.yy * b.yy + a.yz * b.zy);
+}
+
+static inline m33
+m32m23(m32 a, m23 b)
+{
+	return m33new(a.xx * b.xx + a.xy * b.yx,
+		      a.xx * b.xy + a.xy * b.yy,
+		      a.xx * b.xz + a.xy * b.yz,
+		      a.yx * b.xx + a.yy * b.yx,
+		      a.yx * b.xy + a.yy * b.yy,
+		      a.yx * b.xz + a.yy * b.yz,
+		      a.zx * b.xx + a.zy * b.yx,
+		      a.zx * b.xy + a.zy * b.yy,
+		      a.zx * b.xz + a.zy * b.yz);
 }
 
 #ifdef __cplusplus
