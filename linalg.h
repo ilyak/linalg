@@ -31,16 +31,6 @@ typedef float real;
 typedef double real;
 #endif /* LINALG_SINGLE_PRECISION */
 
-/* Do not pollute global namespace in C++ with preprocessor defines. */
-#ifndef __cplusplus
-#define v2idx(v, i) (((real *)&(v))[(i)])
-#define v3idx(v, i) (((real *)&(v))[(i)])
-#define m22idx(m, i, j) (((real *)&(m))[2*(i)+(j)])
-#define m23idx(m, i, j) (((real *)&(m))[3*(i)+(j)])
-#define m32idx(m, i, j) (((real *)&(m))[2*(i)+(j)])
-#define m33idx(m, i, j) (((real *)&(m))[3*(i)+(j)])
-#endif /* __cplusplus */
-
 typedef struct {
 	real x, y;
 } v2;
@@ -88,6 +78,12 @@ static inline v2
 v2zero(void)
 {
 	return v2new(0, 0);
+}
+
+static inline real
+v2idx(v2 v, unsigned i)
+{
+	return ((real *)&v)[i];
 }
 
 static inline v2
@@ -175,6 +171,12 @@ static inline v3
 v3zero(void)
 {
 	return v3new(0, 0, 0);
+}
+
+static inline real
+v3idx(v3 v, unsigned i)
+{
+	return ((real *)&v)[i];
 }
 
 static inline v3
@@ -271,6 +273,12 @@ static inline m22
 m22zero(void)
 {
 	return m22new(0, 0, 0, 0);
+}
+
+static inline real
+m22idx(m22 m, unsigned i, unsigned j)
+{
+	return ((real *)&m)[2*i+j];
 }
 
 static inline m22
@@ -374,6 +382,12 @@ static inline m33
 m33zero(void)
 {
 	return m33new(0, 0, 0, 0, 0, 0, 0, 0, 0);
+}
+
+static inline real
+m33idx(m33 m, unsigned i, unsigned j)
+{
+	return ((real *)&m)[3*i+j];
 }
 
 static inline m33
@@ -520,6 +534,18 @@ static inline m32
 m32zero(void)
 {
 	return m32new(0, 0, 0, 0, 0, 0);
+}
+
+static inline real
+m23idx(m23 m, unsigned i, unsigned j)
+{
+	return ((real *)&m)[3*i+j];
+}
+
+static inline real
+m32idx(m32 m, unsigned i, unsigned j)
+{
+	return ((real *)&m)[2*i+j];
 }
 
 static inline m23
