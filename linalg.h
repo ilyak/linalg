@@ -306,8 +306,7 @@ m22mul(m22 m, real s)
 static inline m22
 m22div(m22 m, real s)
 {
-	s = (real)1.0 / s;
-	return m22new(m.xx * s, m.xy * s, m.yx * s, m.yy * s);
+	return m22mul(m, (real)1.0 / s);
 }
 
 static inline m22
@@ -395,10 +394,7 @@ m33mul(m33 m, real s)
 static inline m33
 m33div(m33 m, real s)
 {
-	s = (real)1.0 / s;
-	return m33new(m.xx * s, m.xy * s, m.xz * s,
-		      m.yx * s, m.yy * s, m.yz * s,
-		      m.zx * s, m.zy * s, m.zz * s);
+	return m33mul(m, (real)1.0 / s);
 }
 
 static inline m33
