@@ -151,6 +151,8 @@ test06(void)
 
 	if (!m22eq(m23m32(a, m23trans(a)), c, EPS)) return (1);
 	if (!m33eq(m32m23(b, m32trans(b)), d, EPS)) return (1);
+	if (!m23eq(m23add(a, m23neg(a)), m23zero(), EPS)) return (1);
+	if (!m32eq(m32add(b, m32neg(b)), m32zero(), EPS)) return (1);
 	if (!realeq(m23idx(a, 0, 0), 1, EPS)) return (1);
 	if (!realeq(m23idx(a, 0, 1), 2, EPS)) return (1);
 	if (!realeq(m23idx(a, 0, 2), 3, EPS)) return (1);
