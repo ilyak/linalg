@@ -510,6 +510,45 @@ m32new(real xx, real xy, real yx, real yy, real zx, real zy)
 	return (m);
 }
 
+static inline m23
+m23zero(void)
+{
+	return m23new(0, 0, 0, 0, 0, 0);
+}
+
+static inline m32
+m32zero(void)
+{
+	return m32new(0, 0, 0, 0, 0, 0);
+}
+
+static inline m23
+m23neg(m23 m)
+{
+	return m23new(-m.xx, -m.xy, -m.xz, -m.yx, -m.yy, -m.yz);
+}
+
+static inline m32
+m32neg(m32 m)
+{
+	return m32new(-m.xx, -m.xy, -m.yx, -m.yy, -m.zx, -m.zy);
+}
+
+static inline m23
+m23add(m23 a, m23 b)
+{
+	return m23new(a.xx + b.xx, a.xy + b.xy, a.xz + b.xz,
+		      a.yx + b.yx, a.yy + b.yy, a.yz + b.yz);
+}
+
+static inline m32
+m32add(m32 a, m32 b)
+{
+	return m32new(a.xx + b.xx, a.xy + b.xy,
+		      a.yx + b.yx, a.yy + b.yy,
+		      a.zx + b.zx, a.zy + b.zy);
+}
+
 static inline m32
 m23trans(m23 m)
 {
@@ -558,6 +597,30 @@ m32m23(m32 a, m23 b)
 		      a.zx * b.xx + a.zy * b.yx,
 		      a.zx * b.xy + a.zy * b.yy,
 		      a.zx * b.xz + a.zy * b.yz);
+}
+
+static inline int
+m23eq(m23 a, m23 b, real eps)
+{
+	if (!realeq(a.xx, b.xx, eps)) return (0);
+	if (!realeq(a.xy, b.xy, eps)) return (0);
+	if (!realeq(a.xz, b.xz, eps)) return (0);
+	if (!realeq(a.yx, b.yx, eps)) return (0);
+	if (!realeq(a.yy, b.yy, eps)) return (0);
+	if (!realeq(a.yz, b.yz, eps)) return (0);
+	return (1);
+}
+
+static inline int
+m32eq(m32 a, m32 b, real eps)
+{
+	if (!realeq(a.xx, b.xx, eps)) return (0);
+	if (!realeq(a.xy, b.xy, eps)) return (0);
+	if (!realeq(a.yx, b.yx, eps)) return (0);
+	if (!realeq(a.yy, b.yy, eps)) return (0);
+	if (!realeq(a.zx, b.zx, eps)) return (0);
+	if (!realeq(a.zy, b.zy, eps)) return (0);
+	return (1);
 }
 
 #ifdef __cplusplus
