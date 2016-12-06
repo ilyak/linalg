@@ -61,6 +61,10 @@ typedef struct {
 	real zx, zy, zz;
 } m33;
 
+typedef struct {
+	real w, x, y, z;
+} q4;
+
 static inline int
 realeq(real a, real b, real eps)
 {
