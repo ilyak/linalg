@@ -6,6 +6,7 @@ your source code. The code can be cleanly compiled as both C and C++.
 
 List of types:
 
+real - single or double precision scalar value
 v2 - vector in 2d
 v3 - vector in 3d
 m22 - 2 by 2 matrix
@@ -24,10 +25,12 @@ v2neg
 v2mul
 v2div
 v2dot
+v2norm
 v2lensq
 v2len
 v2distsq
 v2dist
+v2eq
 
 v3new
 v3zero
@@ -37,11 +40,13 @@ v3neg
 v3mul
 v3div
 v3dot
+v3norm
 v3cross
 v3lensq
 v3len
 v3distsq
 v3dist
+v3eq
 
 m22new
 m22zero
@@ -55,6 +60,7 @@ m22m22
 m22v2
 m22inv
 m22solve
+m22eq
 
 m33new
 m33zero
@@ -68,3 +74,13 @@ m33m33
 m33v3
 m33inv
 m33solve
+m33eq
+
+m23new
+m32new
+m23zero
+m32zero
+m23trans
+m32trans
+
+realeq
