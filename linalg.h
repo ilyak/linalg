@@ -405,6 +405,30 @@ m33ident(void)
 }
 
 static inline m33
+m33rotx(real angle)
+{
+	real c = (real)cos((double)angle);
+	real s = (real)sin((double)angle);
+	return m33new(1, 0, 0, 0, c, -s, 0, s, c);
+}
+
+static inline m33
+m33roty(real angle)
+{
+	real c = (real)cos((double)angle);
+	real s = (real)sin((double)angle);
+	return m33new(c, 0, s, 0, 1, 0, -s, 0, c);
+}
+
+static inline m33
+m33rotz(real angle)
+{
+	real c = (real)cos((double)angle);
+	real s = (real)sin((double)angle);
+	return m33new(c, -s, 0, s, c, 0, 0, 0, 1);
+}
+
+static inline m33
 m33add(m33 a, m33 b)
 {
 	return m33new(a.xx + b.xx, a.xy + b.xy, a.xz + b.xz,
