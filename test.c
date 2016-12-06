@@ -103,6 +103,7 @@ test04(void)
 	if (!m22eq(m22sub(a, m22mul(b, -0.5)), c, EPS)) return (1);
 	if (!m22eq(m22trans(d), m22neg(d), EPS)) return (1);
 	if (!m22eq(m22m22(b, m22inv(b)), m22ident(), EPS)) return (1);
+	if (!m22eq(m22rot((real)M_PI), m22neg(m22ident()), EPS)) return (1);
 	if (!realeq(m22det(a), -2, EPS)) return (1);
 	if (!realeq(m22det(b), -8, EPS)) return (1);
 	if (!realeq(m22det(c),  0, EPS)) return (1);

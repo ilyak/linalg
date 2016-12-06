@@ -288,6 +288,14 @@ m22ident(void)
 }
 
 static inline m22
+m22rot(real angle)
+{
+	real c = (real)cos((double)angle);
+	real s = (real)sin((double)angle);
+	return m22new(c, -s, s, c);
+}
+
+static inline m22
 m22add(m22 a, m22 b)
 {
 	return m22new(a.xx + b.xx, a.xy + b.xy, a.yx + b.yx, a.yy + b.yy);
