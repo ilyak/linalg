@@ -1,4 +1,70 @@
-Linalg is a collection of routines for operations on vectors and matrices.
-It is implemented in one header file using portable C and has no dependencies.
-Both single precision (float) and double precision (double) versions are
-available. See file linalg.h for details.
+Linalg is a collection of inline routines for operations on vectors,
+matrices, and quaternions. It is implemented as a single header file using
+portable C and has no dependencies. Both single precision (float) and double
+precision (double) versions are available. To use, simply include linalg.h in
+your source code. The code can be cleanly compiled as both C and C++.
+
+List of types:
+
+v2 - vector in 2d
+v3 - vector in 3d
+m22 - 2 by 2 matrix
+m33 - 3 by 3 matrix
+m23 - 2 by 3 matrix
+m32 - 3 by 2 matrix
+q4 - quaternion
+
+List of functions:
+
+v2new
+v2zero
+v2add
+v2sub
+v2neg
+v2mul
+v2div
+v2dot
+v2lensq
+v2len
+v2distsq
+v2dist
+
+v3new
+v3zero
+v3add
+v3sub
+v3neg
+v3mul
+v3div
+v3dot
+v3cross
+v3lensq
+v3len
+v3distsq
+v3dist
+
+m22new
+m22zero
+m22ident
+m22rot
+m22add
+m22sub
+m22mul
+m22div
+m22m22
+m22v2
+m22inv
+m22solve
+
+m33new
+m33zero
+m33ident
+m33rot
+m33add
+m33sub
+m33mul
+m33div
+m33m33
+m33v3
+m33inv
+m33solve
