@@ -137,7 +137,7 @@ v2len(v2 v)
 static inline v2
 v2norm(v2 v)
 {
-	return (v2div(v, v2len(v)));
+	return v2div(v, v2len(v));
 }
 
 static inline real
@@ -238,7 +238,7 @@ v3len(v3 v)
 static inline v3
 v3norm(v3 v)
 {
-	return (v3div(v, v3len(v)));
+	return v3div(v, v3len(v));
 }
 
 static inline real
