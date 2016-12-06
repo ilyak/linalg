@@ -212,6 +212,24 @@ test09(void)
 	return (0);
 }
 
+static int
+test10(void)
+{
+	real ang3 = (real)M_PI / 3;
+	m33 a = m33rotx(ang3);
+	m33 b = m33roty(ang3);
+	m33 c = m33rotz(ang3);
+	m33 ex = m33new(1,0,0,0,-1,0,0,0,-1);
+	m33 ey = m33new(-1,0,0,0,1,0,0,0,-1);
+	m33 ez = m33new(-1,0,0,0,-1,0,0,0,1);
+
+	if (!m33eq(m33m33(a, m33m33(a, a)), ex, EPS)) return (1);
+	if (!m33eq(m33m33(b, m33m33(b, b)), ey, EPS)) return (1);
+	if (!m33eq(m33m33(c, m33m33(c, c)), ez, EPS)) return (1);
+
+	return (0);
+}
+
 int
 main(void)
 {
@@ -224,6 +242,7 @@ main(void)
 	if (test07()) return (1);
 	if (test08()) return (1);
 	if (test09()) return (1);
+	if (test10()) return (1);
 
 	return (0);
 }
