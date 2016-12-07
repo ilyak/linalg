@@ -611,6 +611,21 @@ m32add(m32 a, m32 b)
 		      a.zx + b.zx, a.zy + b.zy);
 }
 
+static inline m23
+m23sub(m23 a, m23 b)
+{
+	return m23new(a.xx - b.xx, a.xy - b.xy, a.xz - b.xz,
+		      a.yx - b.yx, a.yy - b.yy, a.yz - b.yz);
+}
+
+static inline m32
+m32sub(m32 a, m32 b)
+{
+	return m32new(a.xx - b.xx, a.xy - b.xy,
+		      a.yx - b.yx, a.yy - b.yy,
+		      a.zx - b.zx, a.zy - b.zy);
+}
+
 static inline m32
 m23trans(m23 m)
 {

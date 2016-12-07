@@ -98,6 +98,8 @@ m23neg
 m32neg
 m23add
 m32add
+m23sub
+m32sub
 m23trans
 m32trans
 m23v3
