@@ -281,6 +281,30 @@ m22idx(m22 m, unsigned i, unsigned j)
 	return ((real *)&m)[2*i+j];
 }
 
+static inline v2
+m22rowx(m22 m)
+{
+	return v2new(m.xx, m.xy);
+}
+
+static inline v2
+m22rowy(m22 m)
+{
+	return v2new(m.yx, m.yy);
+}
+
+static inline v2
+m22colx(m22 m)
+{
+	return v2new(m.xx, m.yx);
+}
+
+static inline v2
+m22coly(m22 m)
+{
+	return v2new(m.xy, m.yy);
+}
+
 static inline m22
 m22ident(void)
 {

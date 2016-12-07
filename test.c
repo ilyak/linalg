@@ -145,6 +145,15 @@ test05(void)
 static int
 test06(void)
 {
+	m22 a = m22new(1,2,3,4);
+	v2 rx = m22rowx(a);
+	v2 ry = m22rowy(a);
+	v2 cx = m22colx(a);
+	v2 cy = m22coly(a);
+
+	if (!m22eq(a, m22new(rx.x, rx.y, ry.x, ry.y), EPS)) return (1);
+	if (!m22eq(a, m22new(cx.x, cy.x, cx.y, cy.y), EPS)) return (1);
+
 	return (0);
 }
 

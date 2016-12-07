@@ -52,6 +52,10 @@ v3eq
 m22new
 m22zero
 m22idx
+m22rowx
+m22rowy
+m22colx
+m22coly
 m22ident
 m22rot
 m22add
