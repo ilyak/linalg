@@ -11,8 +11,6 @@ v2 - vector in 2d
 v3 - vector in 3d
 m22 - 2 by 2 matrix
 m33 - 3 by 3 matrix
-m23 - 2 by 3 matrix
-m32 - 3 by 2 matrix
 q4 - quaternion
 
 List of functions:
@@ -87,26 +85,5 @@ m33det
 m33inv
 m33solve
 m33eq
-
-m23new
-m32new
-m23zero
-m32zero
-m23idx
-m32idx
-m23neg
-m32neg
-m23add
-m32add
-m23sub
-m32sub
-m23trans
-m32trans
-m23v3
-m32v2
-m23m32
-m32m23
-m23eq
-m32eq
 
 realeq

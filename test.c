@@ -145,30 +145,6 @@ test05(void)
 static int
 test06(void)
 {
-	m23 a = m23new(1,2,3,4,5,6);
-	m32 b = m32new(3,2,1,6,5,4);
-	m22 c = m22new(14,32,32,77);
-	m33 d = m33new(13,15,23,15,37,29,23,29,41);
-
-	if (!m22eq(m23m32(a, m23trans(a)), c, EPS)) return (1);
-	if (!m33eq(m32m23(b, m32trans(b)), d, EPS)) return (1);
-	if (!m23eq(m23add(a, m23neg(a)), m23zero(), EPS)) return (1);
-	if (!m32eq(m32add(b, m32neg(b)), m32zero(), EPS)) return (1);
-	if (!m23eq(m23sub(a, a), m23zero(), EPS)) return (1);
-	if (!m32eq(m32sub(b, b), m32zero(), EPS)) return (1);
-	if (!realeq(m23idx(a, 0, 0), 1, EPS)) return (1);
-	if (!realeq(m23idx(a, 0, 1), 2, EPS)) return (1);
-	if (!realeq(m23idx(a, 0, 2), 3, EPS)) return (1);
-	if (!realeq(m23idx(a, 1, 0), 4, EPS)) return (1);
-	if (!realeq(m23idx(a, 1, 1), 5, EPS)) return (1);
-	if (!realeq(m23idx(a, 1, 2), 6, EPS)) return (1);
-	if (!realeq(m32idx(b, 0, 0), 3, EPS)) return (1);
-	if (!realeq(m32idx(b, 0, 1), 2, EPS)) return (1);
-	if (!realeq(m32idx(b, 1, 0), 1, EPS)) return (1);
-	if (!realeq(m32idx(b, 1, 1), 6, EPS)) return (1);
-	if (!realeq(m32idx(b, 2, 0), 5, EPS)) return (1);
-	if (!realeq(m32idx(b, 2, 1), 4, EPS)) return (1);
-
 	return (0);
 }
 
@@ -203,14 +179,6 @@ test08(void)
 static int
 test09(void)
 {
-	m23 a = m23new(1,2,3,4,5,6);
-	m32 t = m23trans(a);
-	v2 x = v2new(11,13);
-	v3 y = v3new(3,5,7);
-
-	if (!v2eq(m23v3(a, y), v2new(34,79), EPS)) return (1);
-	if (!v3eq(m32v2(t, x), v3new(63,87,111), EPS)) return (1);
-
 	return (0);
 }
 
