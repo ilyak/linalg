@@ -74,6 +74,12 @@ m22eq
 m33new
 m33zero
 m33idx
+m33rowx
+m33rowy
+m33rowz
+m33colx
+m33coly
+m33colz
 m33ident
 m33rotx
 m33roty

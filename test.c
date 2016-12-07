@@ -188,6 +188,19 @@ test08(void)
 static int
 test09(void)
 {
+	m33 a = m33new(1,2,3,4,5,6,7,8,9);
+	v3 rx = m33rowx(a);
+	v3 ry = m33rowy(a);
+	v3 rz = m33rowz(a);
+	v3 cx = m33colx(a);
+	v3 cy = m33coly(a);
+	v3 cz = m33colz(a);
+	m33 arows = m33new(rx.x,rx.y,rx.z,ry.x,ry.y,ry.z,rz.x,rz.y,rz.z);
+	m33 acols = m33new(cx.x,cy.x,cz.x,cx.y,cy.y,cz.y,cx.z,cy.z,cz.z);
+
+	if (!m33eq(a, arows, EPS)) return (1);
+	if (!m33eq(a, acols, EPS)) return (1);
+
 	return (0);
 }
 

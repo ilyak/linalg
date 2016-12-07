@@ -422,6 +422,42 @@ m33idx(m33 m, unsigned i, unsigned j)
 	return ((real *)&m)[3*i+j];
 }
 
+static inline v3
+m33rowx(m33 m)
+{
+	return v3new(m.xx, m.xy, m.xz);
+}
+
+static inline v3
+m33rowy(m33 m)
+{
+	return v3new(m.yx, m.yy, m.yz);
+}
+
+static inline v3
+m33rowz(m33 m)
+{
+	return v3new(m.zx, m.zy, m.zz);
+}
+
+static inline v3
+m33colx(m33 m)
+{
+	return v3new(m.xx, m.yx, m.zx);
+}
+
+static inline v3
+m33coly(m33 m)
+{
+	return v3new(m.xy, m.yy, m.zy);
+}
+
+static inline v3
+m33colz(m33 m)
+{
+	return v3new(m.xz, m.yz, m.zz);
+}
+
 static inline m33
 m33ident(void)
 {
