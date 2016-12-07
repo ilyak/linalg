@@ -372,6 +372,12 @@ m22m22(m22 a, m22 b)
 }
 
 static inline real
+m22trace(m22 m)
+{
+	return (m.xx + m.yy);
+}
+
+static inline real
 m22det(m22 m)
 {
 	return (m.xx * m.yy - m.xy * m.yx);
@@ -552,6 +558,12 @@ m33m33(m33 a, m33 b)
 		      a.zx * b.xx + a.zy * b.yx + a.zz * b.zx,
 		      a.zx * b.xy + a.zy * b.yy + a.zz * b.zy,
 		      a.zx * b.xz + a.zy * b.yz + a.zz * b.zz);
+}
+
+static inline real
+m33trace(m33 m)
+{
+	return (m.xx + m.yy + m.zz);
 }
 
 static inline real

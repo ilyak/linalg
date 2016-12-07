@@ -66,6 +66,7 @@ m22div
 m22trans
 m22v2
 m22m22
+m22trace
 m22det
 m22inv
 m22solve
@@ -92,6 +93,7 @@ m33div
 m33trans
 m33v3
 m33m33
+m33trace
 m33det
 m33inv
 m33solve

@@ -153,6 +153,7 @@ test06(void)
 
 	if (!m22eq(a, m22new(rx.x, rx.y, ry.x, ry.y), EPS)) return (1);
 	if (!m22eq(a, m22new(cx.x, cy.x, cx.y, cy.y), EPS)) return (1);
+	if (!realeq(m22trace(a), 5, EPS)) return (1);
 
 	return (0);
 }
@@ -200,6 +201,7 @@ test09(void)
 
 	if (!m33eq(a, arows, EPS)) return (1);
 	if (!m33eq(a, acols, EPS)) return (1);
+	if (!realeq(m33trace(a), 15, EPS)) return (1);
 
 	return (0);
 }
