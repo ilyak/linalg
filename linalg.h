@@ -607,6 +607,65 @@ m33eq(m33 a, m33 b, real eps)
 	return (1);
 }
 
+static inline q4
+q4new(real w, real x, real y, real z)
+{
+	q4 q = { w, x, y, z };
+	return (q);
+}
+
+static inline q4
+q4zero(void)
+{
+	return q4new(0, 0, 0, 0);
+}
+
+static inline real
+q4idx(q4 q, unsigned i)
+{
+	return ((real *)&q)[i];
+}
+
+static inline q4
+q4add(q4 a, q4 b)
+{
+	return q4new(a.w + b.w, a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+static inline q4
+q4sub(q4 a, q4 b)
+{
+	return q4new(a.w - b.w, a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+static inline q4
+q4neg(q4 q)
+{
+	return q4new(-q.w, -q.x, -q.y, -q.z);
+}
+
+static inline q4
+q4mul(q4 q, real s)
+{
+	return q4new(q.w * s, q.x * s, q.y * s, q.z * s);
+}
+
+static inline q4
+q4div(q4 q, real s)
+{
+	return q4new(q.w / s, q.x / s, q.y / s, q.z / s);
+}
+
+static inline int
+q4eq(q4 a, q4 b, real eps)
+{
+	if (!realeq(a.w, b.w, eps)) return (0);
+	if (!realeq(a.x, b.x, eps)) return (0);
+	if (!realeq(a.y, b.y, eps)) return (0);
+	if (!realeq(a.z, b.z, eps)) return (0);
+	return (1);
+}
+
 #ifdef __cplusplus
 } /* namespace linalg */
 #endif
