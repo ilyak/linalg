@@ -27,7 +27,7 @@ v2div
 v2dot
 v2lensq
 v2len
-v2norm
+v2unit
 v2distsq
 v2dist
 v2eq
@@ -44,7 +44,7 @@ v3cross
 v3dot
 v3lensq
 v3len
-v3norm
+v3unit
 v3distsq
 v3dist
 v3eq

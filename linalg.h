@@ -135,7 +135,7 @@ v2len(v2 v)
 }
 
 static inline v2
-v2norm(v2 v)
+v2unit(v2 v)
 {
 	return v2div(v, v2len(v));
 }
@@ -236,7 +236,7 @@ v3len(v3 v)
 }
 
 static inline v3
-v3norm(v3 v)
+v3unit(v3 v)
 {
 	return v3div(v, v3len(v));
 }

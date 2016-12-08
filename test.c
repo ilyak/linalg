@@ -63,11 +63,11 @@ test02(void)
 
 	if (!v3eq(v3mul(a, 0.5), v3new(1.5, 0, -2), EPS)) return (1);
 	if (!v3eq(v3cross(a, b), c, EPS)) return (1);
-	if (!realeq(v3len(v3norm(b)), 1, EPS)) return (1);
+	if (!realeq(v3len(v3unit(b)), 1, EPS)) return (1);
 	if (!realeq(v3len(a), 5, EPS)) return (1);
 	if (!realeq(v3lensq(a), 25, EPS)) return (1);
 	if (!realeq(v2dist(x, y), v2len(v2sub(x, y)), EPS)) return (1);
-	if (!realeq(v2distsq(v2norm(x), v2zero()), 1, EPS)) return (1);
+	if (!realeq(v2distsq(v2unit(x), v2zero()), 1, EPS)) return (1);
 
 	return (0);
 }
