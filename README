@@ -11,7 +11,6 @@ v2 - vector in 2d
 v3 - vector in 3d
 m22 - 2 by 2 matrix
 m33 - 3 by 3 matrix
-m44 - 4 by 4 matrix
 q4 - quaternion
 
 List of functions:

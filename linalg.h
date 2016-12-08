@@ -51,13 +51,6 @@ typedef struct {
 } m33;
 
 typedef struct {
-	real ww, wx, wy, wz;
-	real xw, xx, xy, xz;
-	real yw, yx, yy, yz;
-	real zw, zx, zy, zz;
-} m44;
-
-typedef struct {
 	real w, x, y, z;
 } q4;
 
