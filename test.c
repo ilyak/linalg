@@ -229,11 +229,17 @@ test11(void)
 {
 	q4 a = q4new(1,2,3,4);
 	q4 b = q4new(-1,-2,-3,-4);
+	q4 bb = q4q4(b, q4conj(b));
 
 	if (!q4eq(q4add(a, b), q4zero(), EPS)) return (1);
 	if (!q4eq(q4div(q4sub(a, b), 2), a, EPS)) return (1);
 	if (!q4eq(q4mul(a, -1), b, EPS)) return (1);
 	if (!q4eq(a, q4neg(b), EPS)) return (1);
+	if (!realeq(q4norm(a), q4norm(b), EPS)) return (1);
+	if (!realeq(bb.w, q4normsq(b), EPS)) return (1);
+	if (!realeq(bb.x, 0, EPS)) return (1);
+	if (!realeq(bb.y, 0, EPS)) return (1);
+	if (!realeq(bb.z, 0, EPS)) return (1);
 	if (!realeq(q4idx(a, 0), 1, EPS)) return (1);
 	if (!realeq(q4idx(a, 1), 2, EPS)) return (1);
 	if (!realeq(q4idx(a, 2), 3, EPS)) return (1);

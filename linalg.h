@@ -656,6 +656,33 @@ q4div(q4 q, real s)
 	return q4new(q.w / s, q.x / s, q.y / s, q.z / s);
 }
 
+static inline q4
+q4conj(q4 q)
+{
+	return q4new(q.w, -q.x, -q.y, -q.z);
+}
+
+static inline q4
+q4q4(q4 a, q4 b)
+{
+	return q4new(a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z,
+		     a.w*b.x + a.x*b.w + a.y*b.z - a.z*b.y,
+		     a.w*b.y - a.x*b.z + a.y*b.w + a.z*b.x,
+		     a.w*b.z + a.x*b.y - a.y*b.x + a.z*b.w);
+}
+
+static inline real
+q4normsq(q4 q)
+{
+	return (q.w*q.w + q.x*q.x + q.y*q.y + q.z*q.z);
+}
+
+static inline real
+q4norm(q4 q)
+{
+	return ((real)sqrt((double)q4normsq(q)));
+}
+
 static inline int
 q4eq(q4 a, q4 b, real eps)
 {
