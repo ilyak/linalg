@@ -98,4 +98,18 @@ m33inv
 m33solve
 m33eq
 
+q4new
+q4zero
+q4idx
+q4add
+q4sub
+q4neg
+q4mul
+q4div
+q4conj
+q4q4
+q4normsq
+q4norm
+q4eq
+
 realeq
