@@ -10,12 +10,12 @@ your source code. The code can be cleanly compiled as both C and C++.
 List of types
 -------------
 
-real - single or double precision scalar value
-v2 - vector in 2d
-v3 - vector in 3d
-m22 - 2 by 2 matrix
-m33 - 3 by 3 matrix
-q4 - quaternion
+- _real_ - single or double precision scalar value
+- _v2_ - vector in 2d
+- _v3_ - vector in 3d
+- _m22_ - 2 by 2 matrix
+- _m33_ - 3 by 3 matrix
+- _q4_ - quaternion
 
 List of functions
 -----------------
