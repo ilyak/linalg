@@ -25,6 +25,10 @@
 #define EPS ((real)1.0e-15)
 #endif
 
+#ifdef __cplusplus
+using namespace linalg;
+#endif
+
 static int
 test01(void)
 {
