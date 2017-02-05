@@ -1,6 +1,6 @@
 #include "linalg.h"
 
-/* Test compilation with an empty C file */
+/* Test compilation with an empty C/C++ file */
 
 int
 main(void)
