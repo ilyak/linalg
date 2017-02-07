@@ -35,8 +35,6 @@ List of functions
 - _v2distsq_
 - _v2dist_
 - _v2eq_
-
-
 - _v3new_
 - _v3zero_
 - _v3idx_
@@ -53,8 +51,6 @@ List of functions
 - _v3distsq_
 - _v3dist_
 - _v3eq_
-
-
 - _m22new_
 - _m22zero_
 - _m22idx_
@@ -77,8 +73,6 @@ List of functions
 - _m22inv_
 - _m22solve_
 - _m22eq_
-
-
 - _m33new_
 - _m33zero_
 - _m33idx_
@@ -105,8 +99,6 @@ List of functions
 - _m33inv_
 - _m33solve_
 - _m33eq_
-
-
 - _q4new_
 - _q4zero_
 - _q4idx_
@@ -120,6 +112,4 @@ List of functions
 - _q4normsq_
 - _q4norm_
 - _q4eq_
-
-
 - _realeq_
