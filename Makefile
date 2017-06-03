@@ -1,14 +1,14 @@
-CC= clang
-CFLAGS= -Weverything -g -fcolor-diagnostics
-CXX= clang++
-CXXFLAGS= -Weverything -Wno-old-style-cast -g -fcolor-diagnostics
+CC= cc
+CFLAGS= -Wall -Wextra -g
+CXX= c++
+CXXFLAGS= -Wall -Wextra -g
 LDFLAGS=
 LIBS= -lm
 
-#CC= gcc
-#CFLAGS= -Wall -Wextra -g
-#CXX= g++
-#CXXFLAGS= -Wall -Wextra -g
+#CC= clang
+#CFLAGS= -Weverything -g -fcolor-diagnostics
+#CXX= clang++
+#CXXFLAGS= -Weverything -Wno-old-style-cast -g -fcolor-diagnostics
 #LDFLAGS=
 #LIBS= -lm
 
